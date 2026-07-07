@@ -16,9 +16,9 @@
 
 A maioria dos sistemas de e-commerce não entende como um brechó funciona. Aqui, a regra de negócio foi moldada para a vida real:
 
-* **♻️ Economia Circular de Verdade:** Um User pode ser `CLIENTE` (apenas compra), `CONSIGNADX` (apenas fornece peças) ou `AMBOS`. O sistema calcula automaticamente a porcentagem de repasse das peças vendidas.
+* **♻️ Economia Circular de Verdade:** Uma usuária pode ser `CLIENTE` (apenas compra), `CONSIGNADX` (apenas fornece peças) ou `AMBOS`. O sistema calcula automaticamente a porcentagem de repasse das peças vendidas.
 
-* **✨ 100% Inclusivo:** Sabemos que moda é expressão. Nossa entidade de usuário possui mapeamento nativo de **Pronomes**, garantindo que a comunicação do sistema seja sempre respeitosa e acolhedora com todo mundo.
+* **✨ 100% Inclusivo:** Sabemos que moda é expressão. Nossa entidade de usuário possui mapeamento nativo de **Pronomes**, garantindo que a comunicação do sistema seja sempre respeitosa e acolhedora com todes.
 
 * **🔍 Transparência Absoluta:** Roupas de segunda mão têm história. O banco de dados foi modelado para registrar detalhadamente o *Estado de Conservação* e os *Detalhes de Avaria* de cada peça, garantindo zero surpresas quando a "sacolinha" chegar em casa.
 
@@ -47,4 +47,8 @@ A arquitetura foi construída visando um código limpo (*Clean Code*), fácil ma
 * **PostgreSQL / H2 Database** (Persistência de dados)
 * *Padrão MVC (Model, Repository, Service, Controller)*
 
-   
+---
+
+## 🤖 IA como Tutor Particular
+
+Este projeto foi construído com o auxílio de **Inteligência Artificial atuando como meu tutor particular**. A IA foi fundamental para me guiar nas decisões de arquitetura de software, aplicar as melhores práticas de *Clean Code*, aprofundar meus conhecimentos no ecossistema do Spring Boot e acelerar minha jornada como desenvolvedora.
