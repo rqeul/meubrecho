@@ -16,9 +16,9 @@
 
 A maioria dos sistemas de e-commerce não entende como um brechó funciona. Aqui, a regra de negócio foi moldada para a vida real:
 
-* **♻️ Economia Circular de Verdade:** Uma usuária pode ser `CLIENTE` (apenas compra), `CONSIGNADX` (apenas fornece peças) ou `AMBOS`. O sistema calcula automaticamente a porcentagem de repasse das peças vendidas.
+* **♻️ Economia Circular de Verdade:** Um user pode ser `CLIENTE` (apenas compra), `CONSIGNADX` (apenas fornece peças) ou `AMBOS`. O sistema calcula automaticamente a porcentagem de repasse das peças vendidas.
 
-* **✨ 100% Inclusivo:** Sabemos que moda é expressão. Nossa entidade de usuário possui mapeamento nativo de **Pronomes**, garantindo que a comunicação do sistema seja sempre respeitosa e acolhedora com todes.
+* **✨ 100% Inclusivo:** Sabemos que moda é expressão. Nossa entidade de usuário possui mapeamento nativo de **Pronomes**, garantindo que a comunicação do sistema seja sempre respeitosa e acolhedora com todo mundo.
 
 * **🔍 Transparência Absoluta:** Roupas de segunda mão têm história. O banco de dados foi modelado para registrar detalhadamente o *Estado de Conservação* e os *Detalhes de Avaria* de cada peça, garantindo zero surpresas quando a "sacolinha" chegar em casa.
 
@@ -26,13 +26,13 @@ A maioria dos sistemas de e-commerce não entende como um brechó funciona. Aqui
 
 ---
 
-## 👩‍💻 Como isso ajuda as usuárias?
+## 👩‍💻 Como isso ajuda os Users?
 
 1. **Para quem compra:** Uma vitrine digital super organizada por categorias (Parte de cima, Calçados, etc.), clareza total sobre o estado da peça e um fluxo de "Sacolinha" intuitivo.
 
-2. **Para quem fornece (Consignação):** Segurança de que a peça está rastreada no sistema, atrelada ao seu ID de fornecedora, com o valor de repasse devidamente calculado no banco de dados.
+2. **Para quem fornece (Consignação):** Segurança de que a peça está rastreada no sistema, atrelada ao seu ID de fornecedor(a), com o valor de repasse devidamente calculado no banco de dados.
 
-3. **Para a dona do Brechó:** Facilidade para registrar o acervo, gerenciar pedidos (em aberto, pagos, enviados) e não se perder com as finanças de terceiros.
+3. **Para quem cuida do brechó:** Facilidade para registrar o acervo, gerenciar pedidos (em aberto, pagos, enviados) e não se perder com as finanças de terceiros.
 
 ---
 
