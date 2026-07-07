@@ -7,6 +7,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="tb_pedido")
 public class Pedido {

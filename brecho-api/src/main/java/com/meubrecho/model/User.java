@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "tb_user")
 public class User {
@@ -41,12 +44,7 @@ public class User {
     @Embedded
     private Endereco endereco;
 
-    // ========================================================================
-    // RELACIONAMENTOS INVERSOS (Para facilitar buscas a partir do Usuário)
-    // ========================================================================
 
-    // "Um usuário (cliente) pode ter vários pedidos"
-    // mappedBy = "cliente" -> O JPA vai olhar na classe Pedido para a variável "cliente"
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 

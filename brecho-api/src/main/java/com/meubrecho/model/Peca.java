@@ -6,8 +6,15 @@ import com.raquel.meubrecho.model.enums.Categoria;
 import com.raquel.meubrecho.model.enums.EstadoConservacao;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="tb_peca")
 public class Peca {
@@ -15,7 +22,7 @@ public class Peca {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Columm(nullable = false)
+    @Column(nullable = false)
     private String titulo;
 
     @Column(columnDefinition = "TEXT", nullable = false)
@@ -41,6 +48,8 @@ public class Peca {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default //Quando se usa o Builder, o Lombok ignora os valores default que foram atribuídos.
+    //Pra contornar isso, usei a anotação @Builder.Default - agora sim ele vai reconhecer o default!!
     private StatusPeca status = StatusPeca.DISPONIVEL;
 
     @Enumerated(EnumType.STRING)
