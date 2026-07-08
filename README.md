@@ -16,39 +16,38 @@
 
 A maioria dos sistemas de e-commerce não entende como um brechó funciona. Aqui, a regra de negócio foi moldada para a vida real:
 
-* **♻️ Economia Circular de Verdade:** Um user pode ser `CLIENTE` (apenas compra), `CONSIGNADO` (apenas fornece peças) ou `AMBOS`. O sistema calcula automaticamente a porcentagem de repasse das peças vendidas.
+* **♻️ Economia Circular de Verdade:** Cada pessoa usuária pode ter o perfil de `CLIENTE`, `CONSIGNADO` ou `AMBOS`. O sistema calcula automaticamente o repasse das peças consignadas vendidas.
 
-* **✨ 100% Inclusivo:** Sabemos que moda é expressão. Nossa entidade de usuário possui mapeamento nativo de **Pronomes**, garantindo que a comunicação do sistema seja sempre respeitosa e acolhedora com todo mundo.
+* **✨ 100% Inclusivo:** Sabemos que moda é expressão. Nossa entidade de `User` possui mapeamento nativo de **Pronomes**, garantindo que a comunicação do sistema seja sempre respeitosa e acolhedora com todas as pessoas.
 
-* **🔍 Transparência Absoluta:** Roupas de segunda mão têm história. O banco de dados foi modelado para registrar detalhadamente o *Estado de Conservação* e os *Detalhes de Avaria* de cada peça, garantindo zero surpresas quando a "sacolinha" chegar em casa.
+* **🔍 Transparência Absoluta:** Roupas de segunda mão têm história. O banco de dados foi modelado para registrar detalhadamente o *Estado de Conservação* e os *Detalhes de Avaria* de cada peça, garantindo total confiança na hora da compra.
 
 * **🛍️ Lógica de Peça Única:** Diferente do varejo tradicional, no brechó o estoque é sempre 1. O sistema gerencia a transição de status (de `DISPONIVEL` para `VENDIDA`) assim que a sacolinha é paga.
 
----
+## 👩‍💻 Como isso ajuda as pessoas usuárias?
 
-## 👩‍💻 Como isso ajuda os Users?
+1. **Para quem compra:** Uma vitrine digital organizada, clareza total sobre o estado das peças e um fluxo de "Sacolinha" intuitivo.
 
-1. **Para quem compra:** Uma vitrine digital super organizada por categorias (Parte de cima, Calçados, etc.), clareza total sobre o estado da peça e um fluxo de "Sacolinha" intuitivo.
+2. **Para quem fornece (Consignação):** Segurança de que a peça está rastreada, atrelada ao ID da pessoa fornecedora, com o valor de repasse devidamente calculado pelo motor de vendas.
 
-2. **Para quem fornece (Consignação):** Segurança de que a peça está rastreada no sistema, atrelada ao seu ID de fornecedor(a), com o valor de repasse devidamente calculado no banco de dados.
-
-3. **Para quem cuida do brechó:** Facilidade para registrar o acervo, gerenciar pedidos (em aberto, pagos, enviados) e não se perder com as finanças de terceiros.
-
----
+3. **Para a gestão do brechó:** Facilidade para registrar o acervo, gerenciar o ciclo de vida dos pedidos e automatizar cálculos financeiros de repasses.
 
 ## 🛠️ Tecnologias Utilizadas (The Tech Stack)
 
-A arquitetura foi construída visando um código limpo (*Clean Code*), fácil manutenção e alta escalabilidade:
+A arquitetura foi construída com foco em robustez, legibilidade e as versões mais atuais do ecossistema Java:
 
-* **Java 17+** (Fortemente tipado e robusto)
-* **Spring Boot 3** (Framework principal)
-* **Spring Data JPA / Hibernate** (Mapeamento Objeto-Relacional)
-* **Lombok** (Para um código enxuto, usando o padrão `@Builder`)
-* **PostgreSQL / H2 Database** (Persistência de dados)
-* *Padrão MVC (Model, Repository, Service, Controller)*
+* **Java 26** (Última geração, performance e segurança)
 
----
+* **Spring Boot 4.1.0** (Framework principal com as features mais recentes)
+
+* **Spring Data JPA / Hibernate 7** (Camada de persistência de alta performance)
+
+* **Lombok** (Código limpo e produtivo)
+
+* **H2 Database** (Persistência em memória para desenvolvimento ágil)
+
+* *Arquitetura em camadas: Model, Repository, Service, Controller*
 
 ## 🤖 IA como Tutor Particular
 
-Este projeto foi construído com o auxílio de **Inteligência Artificial atuando como meu tutor particular**. A IA foi fundamental para me guiar nas decisões de arquitetura de software, aplicar as melhores práticas de *Clean Code*, aprofundar meus conhecimentos no ecossistema do Spring Boot e acelerar minha jornada como desenvolvedora.
+Este projeto foi construído com o auxílio de **Inteligência Artificial atuando como minha tutora particular**. A IA foi fundamental para guiar as decisões de arquitetura, aplicar as melhores práticas de *Clean Code*, aprofundar conhecimentos no ecossistema Spring Boot e acelerar a jornada como desenvolvedora.
