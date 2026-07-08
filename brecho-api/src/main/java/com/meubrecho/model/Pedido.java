@@ -1,8 +1,12 @@
-package com.raquel.meubrecho.model;
+package com.meubrecho.model;
 
-import com.raquel.meubrecho.model.enums.StatusPedido;
+import com.meubrecho.model.enums.StatusPedido;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -29,6 +33,7 @@ public class Pedido {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private StatusPedido status = StatusPedido.ABERTO; // Boa prática: já nascer aberto!
 
     @OneToMany(mappedBy = "pedido", cascade = {CascadeType.PERSIST, CascadeType.MERGE})

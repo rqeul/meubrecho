@@ -1,7 +1,7 @@
-package com.raquel.meubrecho.service;
+package com.meubrecho.service;
 
-import com.raquel.meubrecho.model.User;
-import com.raquel.meubrecho.repository.UserRepository;
+import com.meubrecho.model.User;
+import com.meubrecho.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +22,10 @@ public class UserService {
     //REGRAS DE CADASTRO
     public User cadastrarUser(User novoUser) {
 
-        if (userRepository.existsByEmail(novoUser.getEmail))
+        if (userRepository.existsByEmail(novoUser.getEmail()))
             throw new RuntimeException("Esse email já tá cadastrado no nosso sistema, xuxu!! Será que você já não tem uma conta? Clique em 'esqueci a senha'");
 
-        if (userRepository.existsByCpf(novoUser.getCpf))
+        if (userRepository.existsByCpf(novoUser.getCpf()))
             throw new RuntimeException("É permitido apenas 1 CPF por conta, e já tenho esse CPF registrado no sistema! :/");
 
         if (!senhaEhSegura(novoUser.getSenha()))

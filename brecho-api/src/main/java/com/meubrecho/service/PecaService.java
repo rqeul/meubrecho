@@ -1,9 +1,9 @@
-package com.raquel.meubrecho.service;
+package com.meubrecho.service;
 
-import com.raquel.meubrecho.model.Peca;
-import com.raquel.meubrecho.model.enums.Categoria;
-import com.raquel.meubrecho.model.enums.StatusPeca;
-import com.raquel.meubrecho.repository.PecaRepository;
+import com.meubrecho.model.Peca;
+import com.meubrecho.model.enums.Categoria;
+import com.meubrecho.model.enums.StatusPeca;
+import com.meubrecho.repository.PecaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

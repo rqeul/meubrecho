@@ -1,4 +1,4 @@
-package com.raquel.meubrecho.model.enums;
+package com.meubrecho.model.enums;
 
 public enum Categoria {
     PARTE_DE_CIMA,

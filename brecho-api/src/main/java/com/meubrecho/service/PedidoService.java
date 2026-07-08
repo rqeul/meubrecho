@@ -1,13 +1,13 @@
-package com.raquel.meubrecho.service;
+package com.meubrecho.service;
 
-import com.raquel.meubrecho.model.Pedido;
-import com.raquel.meubrecho.model.Peca;
-import com.raquel.meubrecho.model.User;
-import com.raquel.meubrecho.model.enums.StatusPedido;
-import com.raquel.meubrecho.model.enums.StatusPeca;
-import com.raquel.meubrecho.model.enums.TipoPosse;
-import com.raquel.meubrecho.repository.PedidoRepository;
-import com.raquel.meubrecho.repository.PecaRepository;
+import com.meubrecho.model.Pedido;
+import com.meubrecho.model.Peca;
+import com.meubrecho.model.User;
+import com.meubrecho.model.enums.StatusPedido;
+import com.meubrecho.model.enums.StatusPeca;
+import com.meubrecho.model.enums.TipoPosse;
+import com.meubrecho.repository.PedidoRepository;
+import com.meubrecho.repository.PecaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;

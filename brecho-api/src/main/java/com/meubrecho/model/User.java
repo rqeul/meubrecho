@@ -1,9 +1,13 @@
-package com.seubrecho.api.model;
+package com.meubrecho.model;
 
+import com.meubrecho.model.enums.TipoUser;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import com.raquel.meubrecho.model.enums.TipoUsuario;
-import com.raquel.meubrecho.model.enums.Pronomes;
+import com.meubrecho.model.enums.Pronomes;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +39,7 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private TipoUsuario tipo;
+    private TipoUser tipo;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -45,13 +49,16 @@ public class User {
     private Endereco endereco;
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean ativo = true;
 
 
     @OneToMany(mappedBy = "cliente")
+    @Builder.Default
     private List<Pedido> pedidos = new ArrayList<>();
 
 
     @OneToMany(mappedBy = "user")
+    @Builder.Default
     private List<Peca> pecasConsignadas = new ArrayList<>();
 }

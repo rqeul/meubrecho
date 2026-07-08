@@ -1,4 +1,4 @@
-package com.raquel.meubrecho.model.enums;
+package com.meubrecho.model.enums;
 
 public enum UF {
     AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG,

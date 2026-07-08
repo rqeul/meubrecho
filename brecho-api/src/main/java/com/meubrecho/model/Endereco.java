@@ -1,4 +1,4 @@
-package com.raquel.meubrecho.model;
+package com.meubrecho.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

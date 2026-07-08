@@ -1,6 +1,6 @@
-package com.raquel.meubrecho.repository;
+package com.meubrecho.repository;
 
-import com.raquel.meubrecho.model.User;
+import com.meubrecho.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

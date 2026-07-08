@@ -1,7 +1,7 @@
-package com.raquel.meubrecho.model.enums;
+package com.meubrecho.model.enums;
 
 public enum TipoUser {
-    CLIENTE
-    CONSIGNADX
+    CLIENTE,
+    CONSIGNADO,
     AMBOS
 }

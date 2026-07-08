@@ -1,4 +1,4 @@
-package com.meubrecho.brecho_api;
+package com.meubrecho;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

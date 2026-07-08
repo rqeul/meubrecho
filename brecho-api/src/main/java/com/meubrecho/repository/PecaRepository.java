@@ -1,8 +1,8 @@
-package com.raquel.meubrecho.repository;
+package com.meubrecho.repository;
 
-import com.raquel.meubrecho.model.Peca;
-import com.raquel.meubrecho.model.enums.Categoria;
-import com.raquel.meubrecho.model.enums.StatusPeca;
+import com.meubrecho.model.Peca;
+import com.meubrecho.model.enums.Categoria;
+import com.meubrecho.model.enums.StatusPeca;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

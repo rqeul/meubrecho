@@ -1,18 +1,16 @@
-package com.raquel.meubrecho.model;
+package com.meubrecho.model;
 
-import com.raquel.meubrecho.model.enums.StatusPeca;
-import com.raquel.meubrecho.model.enums.TipoPosse;
-import com.raquel.meubrecho.model.enums.Categoria;
-import com.raquel.meubrecho.model.enums.EstadoConservacao;
+import com.meubrecho.model.enums.StatusPeca;
+import com.meubrecho.model.enums.TipoPosse;
+import com.meubrecho.model.enums.Categoria;
+import com.meubrecho.model.enums.EstadoConservacao;
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.math.BigDecimal;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -41,15 +39,12 @@ public class Peca {
 
     @Column(name = "detalhes_avaria", columnDefinition = "TEXT")
     private String detalhesAvaria;
-    // precision = 10 (total de números permitidos), scale = 2 (números depois da vírgula)
-    // Exemplo do limite: 99999999.99
+
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal preco;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @Builder.Default //Quando se usa o Builder, o Lombok ignora os valores default que foram atribuídos.
-    //Pra contornar isso, usei a anotação @Builder.Default - agora sim ele vai reconhecer o default!!
     private StatusPeca status = StatusPeca.DISPONIVEL;
 
     @Enumerated(EnumType.STRING)
@@ -66,5 +61,4 @@ public class Peca {
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
-
 }
