@@ -51,3 +51,7 @@ A arquitetura foi construída com foco em robustez, legibilidade e as versões m
 ## 🤖 IA como Tutor Particular
 
 Este projeto foi construído com o auxílio de **Inteligência Artificial atuando como minha tutora particular**. A IA foi fundamental para guiar as decisões de arquitetura, aplicar as melhores práticas de *Clean Code*, aprofundar conhecimentos no ecossistema Spring Boot e acelerar a jornada como desenvolvedora.
+
+## 🧪 Testes e Validação
+
+Para garantir que a comunicação entre o front-end e o back-end estivesse impecável, utilizei o **Postman**. Ele foi fundamental para simular as requisições HTTP, validar os métodos (GET, POST, PUT, DELETE) e verificar se as regras de negócio (como o cálculo de consignação e o status de sacolinha) estavam retornando os JSONs corretamente.
