@@ -16,7 +16,7 @@
 
 A maioria dos sistemas de e-commerce não entende como um brechó funciona. Aqui, a regra de negócio foi moldada para a vida real:
 
-* **♻️ Economia Circular de Verdade:** Um user pode ser `CLIENTE` (apenas compra), `CONSIGNADX` (apenas fornece peças) ou `AMBOS`. O sistema calcula automaticamente a porcentagem de repasse das peças vendidas.
+* **♻️ Economia Circular de Verdade:** Um user pode ser `CLIENTE` (apenas compra), `CONSIGNADOJ̌(A)` (apenas fornece peças) ou `AMBOS`. O sistema calcula automaticamente a porcentagem de repasse das peças vendidas.
 
 * **✨ 100% Inclusivo:** Sabemos que moda é expressão. Nossa entidade de usuário possui mapeamento nativo de **Pronomes**, garantindo que a comunicação do sistema seja sempre respeitosa e acolhedora com todo mundo.
 
