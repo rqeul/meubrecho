@@ -44,6 +44,9 @@ public class User {
     @Embedded
     private Endereco endereco;
 
+    @Column(nullable = false)
+    private Boolean ativo = true;
+
 
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
