@@ -1,4 +1,4 @@
-<h1 align="center">🎀 Meu Brechó API</h1>
+<h1 align="center">Meu Brechó API</h1>
 
 <p align="center">
   <i>Moda circular, inclusão e tecnologia feita com propósito. Welcome to the girly coded side of tech! ✨</i>
