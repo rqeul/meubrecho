@@ -2,6 +2,6 @@ package com.meubrecho.model.enums;
 
 public enum TipoUser {
     CLIENTE,
-    CONSIGNADO,
+    FORNECEDOR,
     AMBOS
 }

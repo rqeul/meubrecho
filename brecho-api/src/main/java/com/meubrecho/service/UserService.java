@@ -1,62 +1,60 @@
 package com.meubrecho.service;
 
+import com.meubrecho.model.Pronome;
 import com.meubrecho.model.User;
+import com.meubrecho.model.dto.request.UserRequestDTO;
+import com.meubrecho.model.enums.TipoUser;
+import com.meubrecho.repository.PronomeRepository;
 import com.meubrecho.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.regex.Pattern;
-
-// @Service avisa ao Spring: "Aqui ficam as regras de negócio de usuários"
 @Service
 public class UserService {
 
-    // Injetando o nosso "Estoquista" para acessar o banco de dados
     @Autowired
     private UserRepository userRepository;
 
-    //Regex para validar a senha
-    // Pelo menos 1 minúscula, 1 maiúscula, 1 número, 1 caractere especial e mínimo de 8 caracteres.
-    private static final String SENHA_FORTE_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+    // Precisamos injetar o repositório de Pronome para buscar o ID que veio do front!
+    @Autowired
+    private PronomeRepository pronomeRepository;
 
-    //REGRAS DE CADASTRO
-    public User cadastrarUser(User novoUser) {
+    public User cadastrarUser(UserRequestDTO dto) {
 
-        if (userRepository.existsByEmail(novoUser.getEmail()))
-            throw new RuntimeException("Esse email já tá cadastrado no nosso sistema, xuxu!! Será que você já não tem uma conta? Clique em 'esqueci a senha'");
+        // 1. Buscamos o pronome no banco de dados usando o ID que veio no DTO
+        Pronome pronomeEscolhido = pronomeRepository.findById(dto.getPronomeId())
+                .orElseThrow(() -> new RuntimeException("Pronome não encontrado!"));
 
-        if (userRepository.existsByCpf(novoUser.getCpf()))
-            throw new RuntimeException("É permitido apenas 1 CPF por conta, e já tenho esse CPF registrado no sistema! :/");
+        // 2. Criamos a Entidade vazia
+        User novoUser = new User();
 
-        if (!senhaEhSegura(novoUser.getSenha()))
-            throw new RuntimeException("Bora deixar sua conta mais segura! A senha deve ter no mínimo 8 caracteres, contendo pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial.");
+        // 3. Copiamos os dados permitidos do DTO para a Entidade
+        novoUser.setNomeCompleto(dto.getNomeCompleto());
+        novoUser.setEmail(dto.getEmail());
+        novoUser.setCpf(dto.getCpf());
+        novoUser.setSenha(dto.getSenha()); // Idealmente aqui entrará a criptografia (BCrypt) no futuro!
+        novoUser.setTelefone(dto.getTelefone());
 
-        //Passando por todas as verificações, estamos prontos pra salvar o novo User!
+        // 4. Setamos os dados que o sistema controla (Regra de Negócio)
+        novoUser.setAtivo(true); // Toda conta nasce ativa
+        novoUser.setTipo(TipoUser.CLIENTE); // Exemplo: Todo mundo nasce cliente via web
+        novoUser.setPronome(pronomeEscolhido); // Ligando a Chave Estrangeira com segurança!
+
+        // 5. Salvamos no banco
         return userRepository.save(novoUser);
     }
 
-    //REGRA DE EXCLUSÃO DE CONTA
     public void inativarUser(Long id) {
-        // Se o User não existir, o orElseThrow já joga o erro na tela.
+        // 1. Busca o usuário pelo ID (reutilizando o método de busca)
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Oops! Não encontramos nenhuma conta com esse ID para inativar."));
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado para inativação!"));
 
-        // 2. A exclusão suave (Soft Delete): Apenas inativamos a conta.
-        // Assim, os pedidos e as peças consignadas dela continuam seguros no banco!
+        // 2. Muda o status para false
         user.setAtivo(false);
 
-        // 3. Salvamos a usuária atualizada de volta no banco.
+        // 3. Salva a alteração (o Hibernate faz o UPDATE automático)
         userRepository.save(user);
-    }
 
-
-
-    //private porque uso a função como auxiliar APENAS dessa classe
-    private boolean senhaEhSegura(String senha) {
-        if (senha == null) {
-            return false;
-        }
-        // O Java usa a classe Pattern para bater a senha da pessoa com a fórmula Regex
-        return Pattern.compile(SENHA_FORTE_REGEX).matcher(senha).matches();
+        System.out.println("Usuário " + user.getNomeCompleto() + " inativado com sucesso!");
     }
 }

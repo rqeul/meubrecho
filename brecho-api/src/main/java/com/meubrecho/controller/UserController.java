@@ -1,7 +1,11 @@
 package com.meubrecho.controller;
 
+import com.meubrecho.DTOMapper;
+import com.meubrecho.model.dto.request.UserRequestDTO;
+import com.meubrecho.model.dto.response.UserResponseDTO;
 import com.meubrecho.model.User;
 import com.meubrecho.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +19,10 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> cadastrarUser(@RequestBody User novoUser) {
+    public ResponseEntity<UserResponseDTO> cadastrarUser(@Valid @RequestBody UserRequestDTO novoUser) {
         User userSalvo = userService.cadastrarUser(novoUser);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userSalvo);
+        // Retorna apenas o DTO, mantendo a senha e o CPF protegidos
+        return ResponseEntity.status(HttpStatus.CREATED).body(DTOMapper.toUserDTO(userSalvo));
     }
 
     @DeleteMapping("/{id}")

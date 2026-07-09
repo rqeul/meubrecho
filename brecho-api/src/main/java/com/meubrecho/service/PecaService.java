@@ -1,14 +1,19 @@
 package com.meubrecho.service;
 
+import com.meubrecho.model.Categoria;
 import com.meubrecho.model.Peca;
-import com.meubrecho.model.enums.Categoria;
+import com.meubrecho.model.Tamanho;
+import com.meubrecho.model.User;
+import com.meubrecho.model.dto.request.PecaRequestDTO;
 import com.meubrecho.model.enums.StatusPeca;
+import com.meubrecho.repository.CategoriaRepository;
 import com.meubrecho.repository.PecaRepository;
+import com.meubrecho.repository.TamanhoRepository;
+import com.meubrecho.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 
 @Service
 public class PecaService {
@@ -16,68 +21,102 @@ public class PecaService {
     @Autowired
     private PecaRepository pecaRepository;
 
-    // 1. REGRA DE CADASTRO
-    public Peca cadastrarPeca(Peca novaPeca) {
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
+    @Autowired
+    private TamanhoRepository tamanhoRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    // 1. REGRA DE CADASTRO (Agora usando DTO)
+    public Peca cadastrarPeca(PecaRequestDTO dto) {
+
+        // Buscamos as entidades reais no banco usando os IDs do DTO
+        Categoria categoria = categoriaRepository.findById(dto.getCategoriaId())
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada!"));
+
+        Tamanho tamanho = tamanhoRepository.findById(dto.getTamanhoId())
+                .orElseThrow(() -> new RuntimeException("Tamanho não encontrado!"));
+
+        User fornecedora = userRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new RuntimeException("Fornecedora não encontrada!"));
+
+        // Criamos a peça vazia e populamos com os dados
+        Peca novaPeca = new Peca();
+        novaPeca.setTitulo(dto.getTitulo());
+        novaPeca.setDescricao(dto.getDescricao());
+        novaPeca.setPreco(dto.getPreco());
+        novaPeca.setEstadoConservacao(dto.getEstadoConservacao());
+        novaPeca.setDetalhesAvaria(dto.getDetalhesAvaria());
+        novaPeca.setTipoPosse(dto.getTipoPosse());
+        novaPeca.setPorcentagemRepasse(dto.getPorcentagemRepasse());
+
+        // Associações
+        novaPeca.setStatus(StatusPeca.DISPONIVEL);
+        novaPeca.setCategoria(categoria);
+        novaPeca.setTamanho(tamanho);
+        novaPeca.setUser(fornecedora);
 
         return pecaRepository.save(novaPeca);
     }
 
-    // 2. REGRA DA VITRINE INICIAL (O que a cliente vê quando entra no site)
+    // 2. REGRA DA VITRINE INICIAL
     public List<Peca> buscarVitrine() {
-        // A vitrine NUNCA mostra roupas já vendidas. Apenas o que tá DISPONÍVEL!
         return pecaRepository.findByStatus(StatusPeca.DISPONIVEL);
     }
 
-    // 3. REGRA DO MENU DE CATEGORIAS (Ex: Clicou em "Calçados")
-    public List<Peca> buscarPorCategoria(Categoria categoria, boolean apenasDisponiveis) {
+    // 3. REGRA DO MENU DE CATEGORIAS
+    public List<Peca> buscarPorCategoria(Long categoriaId, boolean apenasDisponiveis) {
         if (apenasDisponiveis) {
-            // Traz apenas os calçados que ainda não foram vendidos
-            return pecaRepository.findByCategoriaAndStatus(categoria, StatusPeca.DISPONIVEL);
+            return pecaRepository.findByCategoriaIdAndStatus(categoriaId, StatusPeca.DISPONIVEL);
         }
-        // Se a pessoa quiser ver tudo (inclusive o que já foi vendido pra ter inspiração)
-        return pecaRepository.findByCategoria(categoria);
+        return pecaRepository.findByCategoriaId(categoriaId);
     }
 
-    // 4. REGRA DO PAINEL DA FORNECEDORA (Consignação)
+    // 4. REGRA DO PAINEL DA FORNECEDORA
     public List<Peca> buscarPecasDaFornecedora(Long userId) {
-        // A fornecedora entra no perfil dela e vê todas as peças que ela deixou no brechó
         return pecaRepository.findByUserId(userId);
     }
 
-    // 5. REGRA DE DETALHES DA PEÇA (Quando clica na foto)
+    // 5. REGRA DE DETALHES DA PEÇA
     public Peca buscarPorId(Long id) {
         return pecaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Poxa, não encontramos essa peça no acervo! Ela pode ter sido removida."));
     }
 
-    // 7. REGRA DE ATUALIZAÇÃO (Editar detalhes de uma peça)
-    public Peca atualizarPeca(Long id, Peca pecaComNovosDados) {
-        // 1. Buscamos a peça original que já está no banco de dados
+    // 7. REGRA DE ATUALIZAÇÃO (Corrigida para usar as buscas de Repositório)
+    public Peca atualizarPeca(Long id, PecaRequestDTO pecaComNovosDados) {
+
+        // 1. Buscamos a peça original
         Peca pecaExistente = buscarPorId(id);
 
-        // 2. Atualizamos apenas os campos que podem ser modificados pela usuária
+        // 2. Buscamos as novas categorias e tamanhos baseados nos IDs fornecidos no DTO
+        Categoria novaCategoria = categoriaRepository.findById(pecaComNovosDados.getCategoriaId())
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada!"));
+
+        Tamanho novoTamanho = tamanhoRepository.findById(pecaComNovosDados.getTamanhoId())
+                .orElseThrow(() -> new RuntimeException("Tamanho não encontrado!"));
+
+        // 3. Atualizamos a peça existente
         pecaExistente.setTitulo(pecaComNovosDados.getTitulo());
         pecaExistente.setDescricao(pecaComNovosDados.getDescricao());
         pecaExistente.setPreco(pecaComNovosDados.getPreco());
-        pecaExistente.setTamanho(pecaComNovosDados.getTamanho());
-        pecaExistente.setCategoria(pecaComNovosDados.getCategoria());
         pecaExistente.setEstadoConservacao(pecaComNovosDados.getEstadoConservacao());
         pecaExistente.setDetalhesAvaria(pecaComNovosDados.getDetalhesAvaria());
 
-        // Nota: Perceba que NÃO atualizamos o ID, o Status e nem a Fornecedora (User).
-        // Essas informações são sensíveis e só mudam com regras de negócio específicas!
+        // Agora sim, passando o objeto inteiro!
+        pecaExistente.setTamanho(novoTamanho);
+        pecaExistente.setCategoria(novaCategoria);
 
-        // 3. O JPA é inteligente: quando mandamos salvar uma peça que já tem ID,
-        // ele sabe que é para ATUALIZAR (Update) e não criar uma nova.
+        // 4. Salvamos (O Hibernate faz um UPDATE automático porque a peça já tem ID)
         return pecaRepository.save(pecaExistente);
     }
 
-    // 6. REGRA DE EXCLUSÃO (Quando a dona do brechó desiste de vender a peça)
+    // 6. REGRA DE EXCLUSÃO
     public void deletarPeca(Long id) {
-        Peca peca = buscarPorId(id); // Reutilizamos o método de cima para garantir que a peça existe!
-
-        // Aqui fazemos um Hard Delete (apagamos do banco).
-        // Como a peça não foi vendida (não está em nenhum pedido finalizado), não tem problema apagar!
+        Peca peca = buscarPorId(id);
         pecaRepository.delete(peca);
     }
 }

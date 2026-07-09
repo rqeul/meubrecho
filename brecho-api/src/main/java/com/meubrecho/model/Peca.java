@@ -1,64 +1,69 @@
 package com.meubrecho.model;
 
+import com.meubrecho.model.enums.EstadoConservacao;
 import com.meubrecho.model.enums.StatusPeca;
 import com.meubrecho.model.enums.TipoPosse;
-import com.meubrecho.model.enums.Categoria;
-import com.meubrecho.model.enums.EstadoConservacao;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-@Table(name="tb_peca")
+@Table(name = "tb_peca")
+@Data
+@NoArgsConstructor
 public class Peca {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
 
     @Column(nullable = false)
     private String titulo;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(columnDefinition = "TEXT")
     private String descricao;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Categoria categoria;
-
-    @Column(nullable = false)
-    private String tamanho;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "estado_conservacao", nullable = false)
-    private EstadoConservacao estadoConservacao;
-
-    @Column(name = "detalhes_avaria", columnDefinition = "TEXT")
-    private String detalhesAvaria;
-
-    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal preco;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StatusPeca status = StatusPeca.DISPONIVEL;
+    private EstadoConservacao estadoConservacao;
+
+    private String detalhesAvaria;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_posse", nullable = false)
-    private TipoPosse tipoPosse;
+    @Column(nullable = false)
+    private StatusPeca status; // DISPONIVEL, VENDIDA
 
-    @Column(name = "porcentagem_repasse", precision = 3, scale = 2)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TipoPosse tipoPosse; // ACERVO_PROPRIO ou CONSIGNADA
+
+    // Porcentagem que fica com a fornecedora (Ex: 0.50 para 50%)
+    @Column(precision = 3, scale = 2)
     private BigDecimal porcentagemRepasse;
 
+    // --- CHAVES ESTRANGEIRAS ---
+
+
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private Categoria categoria;
+
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name="tamanho_id",nullable = false)
+    private Tamanho tamanho;
 
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
+
 }
