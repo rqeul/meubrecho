@@ -16,7 +16,7 @@
 
 A maioria dos sistemas de e-commerce não entende como um brechó funciona. Aqui, a regra de negócio foi moldada para a vida real:
 
-* **♻️ Economia Circular de Verdade:** Cada pessoa usuária pode ter o perfil de `CLIENTE`, `CONSIGNADO` ou `AMBOS`. O sistema calcula automaticamente o repasse das peças consignadas vendidas.
+* **♻️ Economia Circular de Verdade:** Cada pessoa usuária pode ter o perfil de `CLIENTE`, `FORNECEDOR` ou `AMBOS`. O sistema calcula automaticamente o repasse das peças consignadas vendidas.
 
 * **✨ 100% Inclusivo:** Sabemos que moda é expressão. Nossa entidade de `User` possui mapeamento nativo de **Pronomes**, garantindo que a comunicação do sistema seja sempre respeitosa e acolhedora com todas as pessoas.
 
