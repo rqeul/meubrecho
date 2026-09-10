@@ -1,4 +1,4 @@
-package meubrecho.brecho_api;
+package com.meubrecho;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
