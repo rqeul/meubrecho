@@ -2,21 +2,13 @@ package com.meubrecho.model;
 
 import com.meubrecho.model.enums.TipoUser;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import com.meubrecho.model.enums.Pronomes;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "tb_user")
+@Data
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -24,41 +16,36 @@ public class User {
     private Long id;
 
     @Column(nullable = false)
-    private String nomeCompleto;
+    private boolean ativo = true;
 
-    @Column(nullable = false, unique = true, length = 14)
-    private String cpf;
+
+    @Column(nullable = false)
+    private String nomeCompleto;
 
     @Column(nullable = false, unique = true)
     private String email;
 
+
+    @Column(nullable = false, unique = true)
+    private String cpf;
+
+
     @Column(nullable = false)
     private String senha;
 
+    @Column(nullable = false)
     private String telefone;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private TipoUser tipo;
+    private TipoUser tipo; // Ex: CLIENTE, FORNECEDOR, AMBOS
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Pronomes pronomes; // O campo inclusivo e maravilhoso que você adicionou!
+    // --- CHAVES ESTRANGEIRAS ---
 
-    @Embedded
+    @ManyToOne
+    @JoinColumn(name = "pronome_id")
+    private Pronome pronome;
+
+
     private Endereco endereco;
-
-    @Column(nullable = false)
-    @Builder.Default
-    private Boolean ativo = true;
-
-
-    @OneToMany(mappedBy = "cliente")
-    @Builder.Default
-    private List<Pedido> pedidos = new ArrayList<>();
-
-
-    @OneToMany(mappedBy = "user")
-    @Builder.Default
-    private List<Peca> pecasConsignadas = new ArrayList<>();
 }

@@ -16,7 +16,7 @@
 
 A maioria dos sistemas de e-commerce não entende como um brechó funciona. Aqui, a regra de negócio foi moldada para a vida real:
 
-* **♻️ Economia Circular de Verdade:** Cada pessoa usuária pode ter o perfil de `CLIENTE`, `CONSIGNADO` ou `AMBOS`. O sistema calcula automaticamente o repasse das peças consignadas vendidas.
+* **♻️ Economia Circular de Verdade:** Cada pessoa usuária pode ter o perfil de `CLIENTE`, `FORNECEDOR` ou `AMBOS`. O sistema calcula automaticamente o repasse das peças consignadas vendidas.
 
 * **✨ 100% Inclusivo:** Sabemos que moda é expressão. Nossa entidade de `User` possui mapeamento nativo de **Pronomes**, garantindo que a comunicação do sistema seja sempre respeitosa e acolhedora com todas as pessoas.
 
@@ -36,7 +36,7 @@ A maioria dos sistemas de e-commerce não entende como um brechó funciona. Aqui
 
 A arquitetura foi construída com foco em robustez, legibilidade e as versões mais atuais do ecossistema Java:
 
-* **Java 26** (Última geração, performance e segurança)
+* **Java 21** 
 
 * **Spring Boot 4.1.0** (Framework principal com as features mais recentes)
 

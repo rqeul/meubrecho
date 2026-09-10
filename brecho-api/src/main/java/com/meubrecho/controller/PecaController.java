@@ -1,73 +1,73 @@
 package com.meubrecho.controller;
 
+import com.meubrecho.DTOMapper;
+import com.meubrecho.model.dto.request.PecaRequestDTO;
+import com.meubrecho.model.dto.response.PecaResponseDTO;
 import com.meubrecho.model.Peca;
-import com.meubrecho.model.enums.Categoria;
 import com.meubrecho.service.PecaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-// @RestController diz: "Sou o Garçom da web! Falo o idioma JSON."
 @RestController
-// @RequestMapping diz o endereço principal desse garçom. Ex: http://localhost:8080/pecas
 @RequestMapping("/pecas")
 public class PecaController {
-
 
     @Autowired
     private PecaService pecaService;
 
-    // 1. CADASTRAR PEÇA (O site envia os dados, e nós salvamos)
-    // @PostMapping significa que estamos recebendo dados novos (Método POST)
     @PostMapping
-    public ResponseEntity<Peca> cadastrarPeca(@RequestBody Peca novaPeca) {
-        // @RequestBody avisa: "Pegue o JSON que veio no corpo da requisição e transforme no objeto Peca!"
+    public ResponseEntity<PecaResponseDTO> cadastrarPeca(@Valid @RequestBody PecaRequestDTO novaPeca) {
         Peca pecaSalva = pecaService.cadastrarPeca(novaPeca);
-        // Retornamos 201 (CREATED) que é o código HTTP de sucesso para "Criado com sucesso!"
-        return ResponseEntity.status(HttpStatus.CREATED).body(pecaSalva);
+        return ResponseEntity.status(HttpStatus.CREATED).body(DTOMapper.toPecaDTO(pecaSalva));
     }
 
-    // 2. VER A VITRINE (Qualquer pessoa acessando o site)
-    // @GetMapping significa que estamos apenas buscando/lendo dados (Método GET)
     @GetMapping("/vitrine")
-    public ResponseEntity<List<Peca>> verVitrine() {
+    public ResponseEntity<List<PecaResponseDTO>> verVitrine() {
         List<Peca> vitrine = pecaService.buscarVitrine();
-        return ResponseEntity.ok(vitrine); // Retorna 200 (OK) com a lista
+
+        List<PecaResponseDTO> vitrineDTO = vitrine.stream()
+                .map(DTOMapper::toPecaDTO)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(vitrineDTO);
     }
 
-    // 3. MENU COM FILTRO DE CATEGORIAS (Ex: http://localhost:8080/pecas/menu?categoria=CALCADOS&disponiveis=true)
     @GetMapping("/menu")
-    public ResponseEntity<List<Peca>> buscarPorCategoria(
-            @RequestParam Categoria categoria,
+    public ResponseEntity<List<PecaResponseDTO>> buscarPorCategoria(
+            @RequestParam Long categoriaId, // Recebemos apenas o ID da categoria pela URL!
             @RequestParam boolean disponiveis) {
 
-        List<Peca> pecas = pecaService.buscarPorCategoria(categoria, disponiveis);
-        return ResponseEntity.ok(pecas);
+        // Passamos o ID para o Service
+        List<Peca> pecas = pecaService.buscarPorCategoria(categoriaId, disponiveis);
+
+        List<PecaResponseDTO> pecasDTO = pecas.stream()
+                .map(DTOMapper::toPecaDTO)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(pecasDTO);
     }
 
-    // 4. VER DETALHES DE UMA PEÇA ESPECÍFICA (Ex: http://localhost:8080/pecas/1)
     @GetMapping("/{id}")
-    public ResponseEntity<Peca> verDetalhesPeca(@PathVariable Long id) {
-        // @PathVariable pega aquele numero '1' lá da URL e joga pra dentro dessa variável Long id
+    public ResponseEntity<PecaResponseDTO> verDetalhesPeca(@PathVariable Long id) {
         Peca peca = pecaService.buscarPorId(id);
-        return ResponseEntity.ok(peca);
+        return ResponseEntity.ok(DTOMapper.toPecaDTO(peca));
     }
 
-    // 5. ATUALIZAR UMA PEÇA (Método PUT)
     @PutMapping("/{id}")
-    public ResponseEntity<Peca> atualizarPeca(@PathVariable Long id, @RequestBody Peca pecaAtualizada) {
+    public ResponseEntity<PecaResponseDTO> atualizarPeca(@PathVariable Long id, @Valid @RequestBody PecaRequestDTO pecaAtualizada) {
         Peca peca = pecaService.atualizarPeca(id, pecaAtualizada);
-        return ResponseEntity.ok(peca);
+        return ResponseEntity.ok(DTOMapper.toPecaDTO(peca));
     }
 
-    // 6. DELETAR UMA PEÇA (Método DELETE)
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarPeca(@PathVariable Long id) {
         pecaService.deletarPeca(id);
-        // Como deletamos, não temos corpo para retornar. Usamos o 204 (NO CONTENT).
         return ResponseEntity.noContent().build();
     }
 }
