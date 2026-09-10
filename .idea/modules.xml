@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/brecho-api.iml" filepath="$PROJECT_DIR$/.idea/brecho-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/meubrecho-main.iml" filepath="$PROJECT_DIR$/.idea/meubrecho-main.iml" />
     </modules>
   </component>
 </project>
