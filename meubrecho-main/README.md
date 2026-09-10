@@ -7,7 +7,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Java-17+-FF69B4?style=for-the-badge&logo=java&logoColor=white" alt="Java"/>
   <img src="https://img.shields.io/badge/Spring_Boot-3-FF1493?style=for-the-badge&logo=spring&logoColor=white" alt="Spring Boot"/>
-  <img src="https://img.shields.io/badge/PostgreSQL-Database-FFB6C1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL"/>
+  <img src="https://img.shields.io/badge/H2-Database-FFB6C1?style=for-the-badge&logo=h2&logoColor=white" alt="H2 Database"/>
 </p>
 
 <br>
