@@ -36,7 +36,7 @@ A maioria dos sistemas de e-commerce não entende como um brechó funciona. Aqui
 
 A arquitetura foi construída com foco em robustez, legibilidade e as versões mais atuais do ecossistema Java:
 
-* **Java 26** (Última geração, performance e segurança)
+* **Java 21** 
 
 * **Spring Boot 4.1.0** (Framework principal com as features mais recentes)
 
